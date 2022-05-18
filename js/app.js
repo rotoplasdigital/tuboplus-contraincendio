@@ -3,7 +3,6 @@ console.log('app')
 includeHTML();
 // Documente ready
 jQuery(document).ready(function($){
-	
 	/* ==============================================================
 	/* SLIDER
 	/* ============================================================== */
@@ -26,5 +25,4 @@ jQuery(document).ready(function($){
 			]
 		})
 	//
-	
 })
