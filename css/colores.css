@@ -18,4 +18,11 @@
 	.black { color: #000; }
 	.gris-1 { color: #f6f6f6; }
 	.grey { color: #666666; }
+
+	.menu-movil-open {
+		background: rgb(0 37 84 / 75%);
+	}
+	.navbar-dark.menu-movil-open .navbar-nav .nav-link {
+		color: #ffffff;
+	}
 /* colores */

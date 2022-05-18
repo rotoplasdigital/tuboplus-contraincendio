@@ -7,14 +7,14 @@
 		<title>Tuboplus Contra incendio - Cotiza ahora</title>
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" href="http://127.0.0.1:5500/css/styles.css">
 		<!-- Slick / Slider CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<!-- Js -->
-		<script src="/js/w3-include-html.js"></script>
+		<script src="http://127.0.0.1:5500/js/w3-include-html.js"></script>
 	</head>
-	<body>
+	<body class="interno">
 		<!-- Navegacion -->
 		<nav id="menu-principal" class="navbar navbar-expand-lg sticky-top navbar-dark" w3-include-html="/menu.html"></nav>
 		<!-- Contenidos -->
@@ -28,8 +28,8 @@
 					</h1>
 					<p>Déjanos tus datos y en breve un ejecutivo de Rotoplas se cominicará contigo.</p>
                     <form id="cotiza-ahora-form">
-						<input type="hidden" name="fecha">
-						<input type="hidden" name="hora">
+						<input id="fecha" type="hidden" name="fecha">
+						<input id="hora" type="hidden" name="hora">
 						<div class="mb-3">
 							<label for="nombre" class="form-label">Nombre <span>*</span></label>
 							<input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp" required>
@@ -74,10 +74,10 @@
 					<p class="text-center">Al hacer click en Enviar estás aceptando nuestro <a class="text-decoration-none" href="#">Aviso de Privacidad</a></p>
 				</div>
 				<div class="col-12 p-3 pe-0 text-center | col-sm-6 offset-sm-0 | col-lg-6 offset-lg-1">
-					<img class="w-100  mb-3" src="/images/contacto-header.jpg" alt="Imagen" title="Cotiza ahora">
+					<img class="w-100  mb-3" src="http://127.0.0.1:5500/images/contacto-header.jpg" alt="Imagen" title="Cotiza ahora">
 					<h2 class="bold my-3">¿Tienes dudas sobre el producto?</h2>
 					<a class="btn rtp-btn-line hvr-float mt-3" href="#">
-						Descarga el catálogo&nbsp;<img src="/images/icono-descarga.svg" width="15" alt="Icono Descarga">
+						Descarga el catálogo&nbsp;<img src="http://127.0.0.1:5500/images/icono-descarga.svg" width="15" alt="Icono Descarga">
 					</a>
 				</div>
 			</div>
@@ -91,6 +91,49 @@
 		<!-- Slick Js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<!-- script -->
-		<script src="/js/app.js"></script>
+		<script src="http://127.0.0.1:5500/js/app.js"></script>
+		<script>
+			/* ==============================================================
+			/* FECHA / HORA
+			/* ============================================================== */
+				const t = new Date()
+				const date = ('0' + t.getDate()).slice(-2)
+				const month = ('0' + (t.getMonth() + 1)).slice(-2)
+				const year = t.getFullYear()
+				const hours = ('0' + t.getHours()).slice(-2)
+				const minutes = ('0' + t.getMinutes()).slice(-2)
+				const seconds = ('0' + t.getSeconds()).slice(-2)
+				const fecha = `${date}/${month}/${year}`
+				const hora = `${hours}:${minutes}:${seconds}`
+				document.getElementById('fecha').value = fecha
+				document.getElementById('hora').value = hora
+			/* ==============================================================
+			/* FORM TO SHEETS
+			/* ============================================================== */
+				// Registro en Google Sheets y envio de correo
+				const scriptURL = 'https://script.google.com/macros/s/AKfycbyWoWDAMIL1ddtvtfR52mwrx0QMxLkuEukHe_XSI3sa7oJ-t84XbPyuv1GXE6F5E0rE/exec'
+				const formulario = document.getElementById('cotiza-ahora-form')
+				formulario.addEventListener('submit', e => {
+					console.log('envio de formulario')
+					e.preventDefault()
+					fetch(
+						scriptURL, 
+						{ 
+							method: 'POST', 
+							body: new FormData(formulario)
+						}
+					)
+					.then(
+						response => console.log('Success!', response)
+					)
+					.then(function() {
+						alert('Gracias por contactarnos, pronto un ejecutivo se pondrá en contacto contigo.')
+						formulario.reset()
+					})
+					.catch(error => console.error('Error!', error.message))
+				})
+				// ID|AKfycbyWoWDAMIL1ddtvtfR52mwrx0QMxLkuEukHe_XSI3sa7oJ-t84XbPyuv1GXE6F5E0rE
+				// URL|https://script.google.com/macros/s/AKfycbyWoWDAMIL1ddtvtfR52mwrx0QMxLkuEukHe_XSI3sa7oJ-t84XbPyuv1GXE6F5E0rE/exec
+		</script>
 	</body>
 </html>
