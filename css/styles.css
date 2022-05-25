@@ -138,11 +138,32 @@
 	padding-top: 4rem;
     background: url(../images/rotoplas_logo.svg) no-repeat, url(../images/header/header.jpg) no-repeat;
     background-size: 150px auto, cover;
-    background-position: 95% 86px, left center;
+    background-position: 95% 86px, left bottom;
 	transition: all ease .3s;
 }
 
 @media screen and (max-width: 992px) {
+	#header {
+		padding-top: 5rem;
+		background-position: 95% 86px, 35% bottom;
+	}
+}
+
+@media screen and (max-width: 810px) {
+	#header {
+		background-position: 95% 86px, 50% bottom;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	#header {
+		background: url(../images/header/header-movil.jpg) no-repeat;
+		background-size: cover;
+		background-position: 100% bottom;
+	}
+}
+
+/* @media screen and (max-width: 992px) {
 	#header {
 		padding-top: 5rem;
 	}
@@ -158,15 +179,7 @@
 	#header {
 		background-position: 95% 86px, 40% center;
 	}
-}
-
-@media screen and (max-width: 575px) {
-	#header {
-		background: url(../images/header/header-movil.jpg) no-repeat;
-		background-size: cover;
-		background-position: center right;
-	}
-}
+} */
 
 /* ==============================================================
 /*	CARACTERISTICAS
