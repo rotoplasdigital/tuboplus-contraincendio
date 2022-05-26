@@ -163,6 +163,14 @@
 	}
 }
 
+@media screen and (max-width: 405px) {
+	#header {
+		background: url(../images/header/header-movil-375.jpg) no-repeat;
+		background-size: cover;
+		background-position: 100% bottom;
+	}
+}
+
 /* @media screen and (max-width: 992px) {
 	#header {
 		padding-top: 5rem;
